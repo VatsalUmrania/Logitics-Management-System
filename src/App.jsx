@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Navbar from './components/Navbar';
-import PollDetails from './components/PollDetails';
+import Navbar from './components/NavBar';
+import PollDetails from './components/PollDetials';
 
 function App() {
   return (
@@ -9,6 +9,7 @@ function App() {
       <Navbar />
       <main className="p-4">
         <PollDetails />
+
       </main>
     </div>
   );
