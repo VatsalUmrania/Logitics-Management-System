@@ -302,7 +302,7 @@ const navItems = [
 ];
 
 const Navbar = () => {
-  const [user] = useState('Vatsal Umrania');
+  const [user] = useState('User');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
