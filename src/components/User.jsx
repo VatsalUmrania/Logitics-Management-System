@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { Outlet } from 'react-router-dom';
 import { User, Plus, Pencil, Trash2, Eye, EyeOff, ChevronDown, Lock, Phone, Home, CreditCard, Globe } from 'lucide-react';
+import Navbar from './NavBar';
 
 const UserManagementPage = () => {
   const [users, setUsers] = useState([
