@@ -86,7 +86,7 @@ const accountsMenu = [
 
 // Main nav items
 const navItems = [
-  { icon: Home, text: 'Dashboard', id: 'home', href:"/user" ,color: 'text-emerald-600'},
+  { icon: Home, text: 'Dashboard', id: 'home', href:"/" ,color: 'text-emerald-600'},
   {
     icon: Database,
     text: 'Master Data',
