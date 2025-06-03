@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { User, Briefcase, Phone, Mail, MapPin, Globe, Edit, Trash2, ChevronDown, Search, Plus } from 'lucide-react';
+import { User, Briefcase, Phone, Mail, MapPin, Globe, Edit, Trash2, ChevronDown, Search, Plus, X } from 'lucide-react';
 
 const ClientManagementPage = () => {
   const [clients, setClients] = useState([
@@ -207,15 +207,16 @@ const ClientManagementPage = () => {
               </div>
             </div>
             <button
-              onClick={() => {
-                setIsAdding(!isAdding);
-                setEditingId(null);
-              }}
-              className="px-5 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-medium hover:from-indigo-700 hover:to-purple-700 transition-all flex items-center shadow-md"
-            >
-              <Plus className="w-5 h-5 mr-2" />
-              {isAdding ? 'Cancel' : 'Add Client'}
-            </button>
+              onClick={() => setIsAdding(!isAdding)}
+              className={`px-5 py-2 text-white rounded-lg font-medium transition-all flex items-center shadow-md
+                ${isAdding 
+                  ? 'bg-red-600 hover:bg-red-700' 
+                  : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700'}
+              `}
+              >
+              {isAdding ? <X className="w-5 h-5 mr-2" /> : <Plus className="w-5 h-5 mr-2" />}
+              {isAdding ? 'Close' : 'Add Bank'}
+          </button>
           </div>
         </div>
 
@@ -561,10 +562,8 @@ const ClientManagementPage = () => {
                       city: '',
                       agentArName: ''
                     });
-                  }}
-                  className="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors"
+                  }} 
                 >
-                  Cancel
                 </button>
               </div>
             </div>

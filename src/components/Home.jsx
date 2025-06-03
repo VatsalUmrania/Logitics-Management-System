@@ -1,6 +1,6 @@
 import React from "react";
 import { Truck, Users, FileText, Database, CreditCard, FileCheck, Home } from "lucide-react";
-
+import logo from '../assets/logo_lms-removebg-preview.jpg';
 const cards = [
   {
     icon: <Truck className="w-10 h-10 text-blue-500" />,
@@ -47,9 +47,10 @@ const HomePage = () => {
         {/* Welcome Banner */}
         <div className="flex flex-col items-center mb-12">
           <div className="flex items-center mb-3">
-            <div className="w-16 h-16 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 rounded-2xl flex items-center justify-center shadow-lg transform rotate-3">
-              <Truck className="w-10 h-10 text-white transform -rotate-3" />
-            </div>
+            <img src={logo} alt="logo" className="w-10 h-10 align-middle" />
+            {/* <div className="w-16 h-16 bg-gradient-to-br from-white-600 via-purple-600 to-pink-600 rounded-2xl flex items-center justify-center shadow-lg transform rotate-3">
+              <img src={logo} alt="logo" className="w-10 h-10" />
+            </div> */}
             <div className="ml-6">
               <h1 className="text-4xl font-black bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 bg-clip-text text-transparent mb-1">
                 LOGISTICS MANAGEMENT SYSTEM

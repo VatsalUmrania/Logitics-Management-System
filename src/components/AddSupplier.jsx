@@ -185,19 +185,14 @@ const AddSupplierPage = () => {
             </div>
             <button
               onClick={() => setIsAdding(!isAdding)}
-              className="px-5 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-medium hover:from-indigo-700 hover:to-purple-700 transition-all flex items-center shadow-md"
+              className={`px-5 py-2 text-white rounded-lg font-medium transition-all flex items-center shadow-md
+                ${isAdding 
+                  ? 'bg-red-600 hover:bg-red-700' 
+                  : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700'}
+              `}
             >
-              {isAdding ? (
-                <>
-                  <X className="w-5 h-5 mr-2" />
-                  Close
-                </>
-              ) : (
-                <>
-                  <Plus className="w-5 h-5 mr-2" />
-                  Add Supplier
-                </>
-              )}
+              {isAdding ? <X className="w-5 h-5 mr-2" /> : <Plus className="w-5 h-5 mr-2" />}
+              {isAdding ? 'Cancel' : 'Add Bank'}
             </button>
           </div>
         </div>
@@ -367,14 +362,9 @@ const AddSupplierPage = () => {
                       registerDate: '',
                     });
                   }}
-                  className={`px-6 py-2.5 rounded-lg font-medium transition-colors flex items-center ${
-                    isAdding
-                      ? 'bg-red-100 text-red-700 hover:bg-red-200'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                  }`}
+                  
                 >
-                  <X className="w-5 h-5 mr-1" />
-                  Cancel
+                
                 </button>
               </div>
             </div>

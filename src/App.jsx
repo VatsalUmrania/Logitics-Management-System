@@ -79,6 +79,15 @@ import AssignSupplier from "./components/assignsupp";
 import AddSupplierPage from "./components/AddSupplier";
 import SupplierInvoiceEditPage from "./components/SupplierInvoiceEdit";
 import DeliveryNotePage from "./components/DeliveryNote";
+import JobNoSearch from "./components/SearchByJobNo";
+import InvoiceSearch from "./components/InvoiceSearch";
+import CustomerStatement from "./components/CustomerStatement";
+import PaymentReport from "./components/PaymentReport";
+import LandingPage from "./components/LandingPage";
+import BayanNoSearch from "./components/BayanNoSearch";
+import ClientSearch from "./components/ClientSearch";
+import InvoiceSearchByDate from "./components/InvoiceSearchByDate";
+import VoucherDetails from "./components/VoucherDetails";
 
 const Layout = () => (
   <>
@@ -107,11 +116,20 @@ const router = createBrowserRouter(
         <Route path="/addsupplier" element={<AddSupplierPage />} />
         <Route path="/invoice-edit" element={<SupplierInvoiceEditPage />} />
         <Route path="/deliverynote" element={<DeliveryNotePage />} />
+        <Route path="/jobno" element={<JobNoSearch />} />
+        <Route path="/invoice-search" element={<InvoiceSearch />} />
+        <Route path="/customer-statement" element={<CustomerStatement />} />
+        <Route path="/payment-report" element={<PaymentReport />} />
+        <Route path="/bayanno" element={<BayanNoSearch />} />
+        <Route path="/client-search" element={<ClientSearch />} />
+        <Route path="/invoice-search-by-date" element={<InvoiceSearchByDate />} />
+        <Route path="/voucher-details" element={<VoucherDetails />} />
       </Route>
 
       {/* No Layout Routes */}
       <Route element={<NoLayout />} errorElement={<ErrorPage />}>
         <Route path="/assignup" element={<AssignSupplier />} />
+        <Route path="/landing-page" element={<LandingPage />} />
       </Route>
     </>
   )
