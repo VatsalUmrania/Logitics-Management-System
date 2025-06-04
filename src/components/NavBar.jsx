@@ -420,18 +420,20 @@ const Navbar = () => {
                         </button>
                         {item.hasDropdown && activeDropdown === item.id && (
                           <div className="bg-gray-50 px-5 py-2 space-y-1 max-h-[60vh] overflow-auto rounded-lg mx-2 mb-2">
-                            <Link
-                              key={entry.key}
-                              to={entry.href || `#${entry.key}`}
-                              className="block px-4 py-2.5 text-sm text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 rounded transition-colors"
-                              onClick={() => {
-                                setActiveDropdown(null); // Optional: collapse menu
-                                setIsMobileMenuOpen(false); // Optional: close mobile menu
-                              }}
-                            >
-                              {entry.icon && entry.icon}
-                              {entry.label}
-                            </Link>
+                            {(item.dropdownItems || []).map((entry) => (
+                              <Link
+                                key={entry.key}
+                                to={entry.href || `#${entry.key}`}
+                                className="block px-4 py-2.5 text-sm text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 rounded transition-colors"
+                                onClick={() => {
+                                  setActiveDropdown(null);
+                                  setIsMobileMenuOpen(false);
+                                }}
+                              >
+                                {entry.icon && entry.icon}
+                                {entry.label}
+                              </Link>
+                            ))}
                           </div>
                         )}
                       </div>
