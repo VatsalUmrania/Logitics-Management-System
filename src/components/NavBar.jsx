@@ -24,7 +24,7 @@ const supplierMenu = [
   { label: 'Add Supplier', key: 'add_supplier', icon: <span className="mr-2 text-indigo-500">•</span>, href:"/addsupplier" },
   { label: 'Supplier Purchase', key: 'supplier_purchase', icon: <span className="mr-2 text-indigo-500">•</span> },
   { label: 'Supplier Payment', key: 'supplier_payment', icon: <span className="mr-2 text-indigo-500">•</span> },
-  { label: 'Supplier Invoice Edit', key: 'supplier_invoice_edit', icon: <span className="mr-2 text-indigo-500">•</span> },
+  { label: 'Supplier Invoice Edit', key: 'supplier_invoice_edit', icon: <span className="mr-2 text-indigo-500">•</span>,  href:"/invoice-edit"},
   { label: 'Supplier Creditnote', key: 'supplier_creditnote', icon: <span className="mr-2 text-indigo-500">•</span> },
   { label: 'Supplier Invoice Cancel', key: 'supplier_invoice_cancel', icon: <span className="mr-2 text-indigo-500">•</span> },
   { label: 'Supplier Statement Report', key: 'supplier_statement_report', icon: <span className="mr-2 text-indigo-500">•</span> },
@@ -436,6 +436,7 @@ const Navbar = () => {
                             ))}
                           </div>
                         )}
+
                       </div>
                     );
                   })}

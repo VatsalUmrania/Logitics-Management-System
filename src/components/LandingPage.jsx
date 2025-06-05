@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logo from '../assets/logo_lms-removebg-preview.jpg';
 
 const LandingPage = () => {
   return (
@@ -11,13 +12,15 @@ const LandingPage = () => {
             <div className="flex items-center space-x-3">
               <div className="relative">
                 <div className="absolute inset-0 bg-blue-600 rounded-lg transform rotate-6 transition-transform group-hover:rotate-12"></div>
-                <svg className="w-10 h-10 text-white relative" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                {/* <svg className="w-10 h-10 text-white relative" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
                     d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-                </svg>
+                </svg> */}
+                
               </div>
+              <img src={logo} alt="logo" className="w-11 h-11" />
               <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-                LogiFlow
+                Logistics Management System
               </span>
             </div>
             
@@ -25,9 +28,13 @@ const LandingPage = () => {
               <NavLink href="#features">Features</NavLink>
               <NavLink href="#how-it-works">How it Works</NavLink>
               <NavLink href="#tech-stack">Tech Stack</NavLink>
-              <button className="px-6 py-2.5 text-blue-600 border-2 border-blue-600/20 rounded-full hover:border-blue-600 transition-colors duration-300">
-                Login
-              </button>
+              <Link
+  to="/login"
+  className="px-6 py-2.5 text-blue-600 border-2 border-blue-600/20 rounded-full hover:border-blue-600 transition-colors duration-300"
+>
+  Login
+</Link>
+
               <button className="px-6 py-2.5 text-white bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full hover:shadow-lg hover:shadow-blue-600/20 transition-all duration-300">
                 Get Started
               </button>
