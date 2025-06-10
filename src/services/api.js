@@ -1,11 +1,37 @@
+// api.js
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:5000/api/users',
-  headers: { 'Content-Type': 'application/json' }
+  baseURL: 'http://localhost:5000/api',
+  withCredentials: true
 });
 
-export const getAllUsers = () => API.get('/');
-export const createUser = (userData) => API.post('/', userData);
-export const updateUser = (id, userData) => API.put(`/${id}`, userData);
-export const deleteUser = (id) => API.delete(`/${id}`);
+API.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+const authService = {
+  login: async (credentials) => {
+    try {
+      const response = await API.post('/auth/login', credentials);
+      return response.data;
+    } catch (error) {
+      throw error.response?.data?.message || 'Login failed';
+    }
+  },
+
+  getProtectedData: async () => {
+    try {
+      const response = await API.get('/protected');
+      return response.data;
+    } catch (error) {
+      throw error.response?.data?.message || 'Request failed';
+    }
+  }
+};
+
+export { authService };
