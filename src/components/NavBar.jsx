@@ -70,7 +70,7 @@ const reportsMenu = [
 
 // Accounts submenu
 const accountsMenu = [
-  { label: 'Account Head', key: 'account_head' },
+  { label: 'Account Head', key: 'account_head', href:"/account-head" },
   { label: 'Sub Account Head', key: 'sub_account_head' },
   { label: 'Opening Balance', key: 'opening_balance' },
   { label: 'Journal Voucher', key: 'journal_voucher' },
