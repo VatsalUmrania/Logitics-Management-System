@@ -26,7 +26,7 @@ const supplierMenu = [
   { label: 'Supplier Payment', key: 'supplier_payment', icon: <span className="mr-2 text-indigo-500">•</span>, href:"/supplier-payment" },
   { label: 'Supplier Invoice Edit', key: 'supplier_invoice_edit', icon: <span className="mr-2 text-indigo-500">•</span>,  href:"/supplier-invoice-edit"},
   { label: 'Assign Supplier', key: 'supplier_assign', icon: <span className="mr-2 text-indigo-500">•</span>, href:"/supplier-assign" },
-  { label: 'Supplier Creditnote', key: 'supplier_creditnote', icon: <span className="mr-2 text-indigo-500">•</span> },
+  { label: 'Supplier Creditnote', key: 'supplier_creditnote', icon: <span className="mr-2 text-indigo-500">•</span>, href:"/supplier-creditnote" },
   { label: 'Supplier Invoice Cancel', key: 'supplier_invoice_cancel', icon: <span className="mr-2 text-indigo-500">•</span> },
   { label: 'Supplier Statement Report', key: 'supplier_statement_report', icon: <span className="mr-2 text-indigo-500">•</span> },
   { label: 'Purchase Search By Supplier', key: 'purchase_search_supplier', icon: <span className="mr-2 text-indigo-500">•</span>, href:"/purchase-search" },
@@ -34,19 +34,16 @@ const supplierMenu = [
 
 // Custom Clearance submenu
 const clearanceMenu = [
-  { label: 'Add Clearance Operation', key: 'add_clearance_op' },
-  { label: 'Edit Clearance Operation', key: 'edit_clearance_op' },
+  { label: 'Clearance Operation', key: 'add_clearance_op',href:"/clearance" },
   { label: 'Assign Expense', key: 'assign_expense', href:"/assign-expenses" },
-  { label: 'Invoice Search', key: 'invoice' },
-  { label: 'Invoice Creditnote', key: 'invoice_creditnote' },
-  { label: 'Creditnote Search', key: 'creditnote_search', href:"/credit-note-search" },
-  { label: 'Invoice Creditnote Edit', key: 'invoice_creditnote_edit' },
-  { label: 'Job Other Charges', key: 'job_other_charges' },
-  { label: 'Receipt Cancelation', key: 'receipt_cancelation' },
+  { label: 'Assign Other Charges', key: 'assign_other_charges', href:"/assign-other-charges" },
+  // { label: 'Invoice Creditnote', key: 'invoice_creditnote' },
+  { label: 'Creditnote', key: 'creditnote_search', href:"/credit-note" },
+  // { label: 'Invoice Creditnote Edit', key: 'invoice_creditnote_edit' },
+  // { label: 'Job Other Charges', key: 'job_other_charges' },
+  { label: 'Receipt Cancelation', key: 'receipt_cancelation', href:"recipt-cancel" },
   { label: 'Delivery Note', key: 'delivery_note' ,href:"/delivery-note" },
-  { label: 'Delivery Note Edit', key: 'delivery_note_edit' },
-  { label: 'Delivery Note Search', key: 'delivery_note_search' },
-  { label: 'Expense Posting', key: 'expense_posting' },
+  // { label: 'Expense Posting', key: 'expense_posting' },
 ];
 
 // Reports submenu
@@ -65,7 +62,7 @@ const reportsMenu = [
   { label: 'Voucher', key: 'voucher', href:"/voucher-details" },
   { label: 'Profit Report By Jobno', key: 'profit_report_jobno' },
   { label: 'Profit Report By Date', key: 'profit_report_date', href:"/profit-report-by-date" },
-  { label: 'Purchase Sales Vat Report', key: 'purchase_sales_vat_report' },
+  { label: 'Purchase Sales Vat Report', key: 'purchase_sales_vat_report' }
 ];
 
 // Accounts submenu
@@ -137,15 +134,64 @@ const navItems = [
   },
 ];
 
+const toCamelCase = (str) => {
+  return str.replace(/([-_][a-z])/ig, ($1) => {
+    return $1.toUpperCase().replace('-', '').replace('_', '');
+  });
+};
+
 const Navbar = () => {
-  const [user] = useState('User');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchUserData = async () => {
+    try {
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        window.location.href = '/login';
+        return;
+      }
+      
+      const response = await fetch('http://localhost:5000/api/users/me', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const result = await response.json();
+      
+      if (response.ok) {
+        if (result.data && result.data.employee_name) {
+          setUser(result.data.employee_name);
+        } else {
+          console.error('User data not found in response', result);
+        }
+      } else {
+        if (response.status === 401) {
+          localStorage.removeItem('authToken');
+          window.location.href = '/login';
+        } else {
+          console.error('API error:', result.message || 'Unknown error');
+        }
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+      localStorage.removeItem('authToken');
+      window.location.href = '/login';
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    
+    fetchUserData();
+  }, []);
+
+  useEffect(() => {  
 
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -175,10 +221,15 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    console.log('User logged out');
-    setIsUserDropdownOpen(false);
-  };
+    // Clear user data and token from localStorage
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('username');
+    
+    // Optionally redirect the user to the login page
+    window.location.href = '/';
 
+    fetchUserData();
+};
   return (
     <div className="w-full">
       <div
@@ -236,24 +287,24 @@ const Navbar = () => {
               </div>
               {/* User Menu */}
               <div className="flex items-center space-x-3 relative user-dropdown">
-                <button
-                  onClick={toggleUserDropdown}
-                  className="flex items-center space-x-2 focus:outline-none"
-                >
-                  <div className="w-9 h-9 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center">
-                    <User className="w-5 h-5 text-white" />
-                  </div>
-                  <div className="hidden md:flex flex-col items-end">
-                    <span className="text-sm font-medium text-gray-800">{user}</span>
-                    
-                    
-                  </div>
-                  <ChevronDown
-                    className={`w-4 h-4 text-gray-500 transition-transform ${
-                      isUserDropdownOpen ? 'rotate-180' : ''
-                    }`}
-                  />
-                </button>
+              <button
+        onClick={toggleUserDropdown}
+        className="flex items-center space-x-2 focus:outline-none"
+      >
+        <div className="w-9 h-9 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center">
+          <User className="w-5 h-5 text-white" />
+        </div>
+        <div className="hidden md:flex flex-col items-end">
+          <span className="text-sm font-medium text-gray-800">
+            {user ? user : 'Loading...'}  {/* Display loading text if user is not yet set */}
+          </span>
+        </div>
+        <ChevronDown
+          className={`w-4 h-4 text-gray-500 transition-transform ${
+            isUserDropdownOpen ? 'rotate-180' : ''
+          }`}
+        />
+      </button>
                 
                 {/* User Dropdown */}
                 {isUserDropdownOpen && (
